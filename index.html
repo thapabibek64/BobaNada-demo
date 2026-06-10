@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>BobaNada Franchise Ordering System</title>
+
+  <style>
+    :root {
+      --green: #163f2c;
+      --green-light: #245c3e;
+      --cream: #fff7eb;
+      --cream-dark: #f1dfc8;
+      --orange: #d2762c;
+      --orange-dark: #a9541e;
+      --brown: #2d241c;
+      --gray: #766b61;
+      --white: #ffffff;
+      --shadow: 0 20px 45px rgba(0, 0, 0, 0.10);
+      --soft-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--brown);
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 260px 1fr 430px;
+    }
+
+    /* LEFT BRAND PANEL */
+
+    .sidebar {
+      background:
+        linear-gradient(180deg, rgba(22, 63, 44, 0.98), rgba(22, 63, 44, 0.94)),
+        url("https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80");
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 17px;
+      background: var(--cream);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+    }
+
+    .brand-name {
+      font-size: 28px;
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    .brand-name span {
+      color: #ffc77b;
+    }
+
+    .brand-subtitle {
+      color: #dcece2;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      margin-bottom: 28px;
+    }
+
+    .trial-pill {
+      display: inline-block;
+      background: #ffc77b;
+      color: var(--green);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 950;
+      margin-bottom: 26px;
+    }
+
+    .nav-label {
+      font-size: 12px;
+      color: #b8d0c0;
+      margin: 22px 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 850;
+    }
+
+    .nav-btn {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: white;
+      padding: 14px 14px;
+      border-radius: 16px;
+      text-align: left;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 850;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+    }
+
+    .franchise-card {
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 18px;
+      border-radius: 24px;
+      backdrop-filter: blur(10px);
+      line-height: 1.5;
+    }
+
+    .franchise-card strong {
+      color: #ffc77b;
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .franchise-card p {
+      color: #edf7ef;
+      font-size: 13px;
+    }
+
+    /* MAIN AREA */
+
+    .main {
+      padding: 28px;
+      overflow-y: auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .location-chip {
+      background: white;
+      border: 1px solid #ead8c4;
+      padding: 13px 16px;
+      border-radius: 18px;
+      box-shadow: var(--soft-shadow);
+      font-size: 13px;
+      color: var(--gray);
+      font-weight: 750;
+    }
+
+    .location-chip strong {
+      color: var(--green);
+      display: block;
+      font-size: 15px;
+    }
+
+    .search {
+      width: 330px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1px solid #dcc9b2;
+      background: white;
+      outline: none;
+      font-size: 14px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .hero {
+      background:
+        linear-gradient(100deg, rgba(22,63,44,0.97), rgba(22,63,44,0.70), rgba(210,118,44,0.25)),
+        url("https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=1500&q=80");
+      background-size: cover;
+      background-position: center;
+      color: white;
+      border-radius: 34px;
+      padding: 42px;
+      min-height: 315px;
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow);
+      margin-bottom: 26px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "BOBANADA";
+      position: absolute;
+      right: -20px;
+      bottom: -8px;
+      font-size: 80px;
+      font-weight: 950;
+      letter-spacing: -4px;
+      color: rgba(255,255,255,0.08);
+    }
+
+    .hero-content {
+      max-width: 650px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      line-height: 1.02;
+      letter-spacing: -2px;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span {
+      color: #ffc77b;
+    }
+
+    .hero p {
+      color: #f9f2e8;
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 610px;
+      margin-bottom: 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .hero-btn.primary {
+      background: #ffc77b;
+      color: var(--green);
+    }
+
+    .hero-btn.secondary {
+      background: rgba(255,255,255,0.14);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid #ead8c4;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .stat-card strong {
+      color: var(--green);
+      font-size: 22px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .stat-card span {
+      color: var(--gray);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      color: var(--green);
+      font-size: 30px;
+      letter-spacing: -1px;
+    }
+
+    .section-head p {
+      color: var(--gray);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .cat-btn {
+      border: 1px solid #dfccb6;
+      background: white;
+      color: #4c4035;
+      padding: 12px 17px;
+      border-radius: 999px;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+    }
+
+    .cat-btn.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid #ead8c4;
+      box-shadow: var(--soft-shadow);
+      transition: 0.23s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .product-img-wrap {
+      height: 165px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.35s;
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.06);
+    }
+
+    .badge {
+      position: absolute;
+      top: 13px;
+      left: 13px;
+      background: rgba(22,63,44,0.92);
+      color: white;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .product-body {
+      padding: 18px;
+    }
+
+    .product-meta {
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 950;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .product-body h3 {
+      font-size: 18px;
+      min-height: 44px;
+      color: var(--brown);
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .product-body p {
+      color: var(--gray);
+      font-size: 13px;
+      line-height: 1.45;
+      min-height: 40px;
+      margin-bottom: 14px;
+    }
+
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .price {
+      color: var(--green);
+      font-size: 21px;
+      font-weight: 950;
+    }
+
+    .add-btn {
+      background: var(--orange);
+      color: white;
+      border: none;
+      padding: 11px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: 950;
+    }
+
+    .add-btn:hover {
+      background: var(--orange-dark);
+    }
+
+    /* CHECKOUT */
+
+    .checkout {
+      background: white;
+      border-left: 1px solid #ead8c4;
+      padding: 24px;
+      overflow-y: auto;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.04);
+    }
+
+    .checkout-header {
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      color: white;
+      padding: 20px;
+      border-radius: 26px;
+      margin-bottom: 18px;
+    }
+
+    .checkout-header h2 {
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .checkout-header p {
+      color: #dff0e5;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .form-row {
+      margin-bottom: 13px;
+    }
+
+    .form-row label {
+      display: block;
+      color: #50463d;
+      font-size: 13px;
+      font-weight: 950;
+      margin-bottom: 6px;
+    }
+
+    .form-row input,
+    .form-row select {
+      width: 100%;
+      border: 1px solid #dcc9b2;
+      border-radius: 16px;
+      padding: 13px;
+      background: #fffdf9;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .cart-title {
+      color: var(--green);
+      font-size: 18px;
+      font-weight: 950;
+      margin: 18px 0 10px;
+      padding-top: 15px;
+      border-top: 1px solid #ead8c4;
+    }
+
+    .empty {
+      color: var(--gray);
+      padding: 16px 0;
+      font-size: 14px;
+    }
+
+    .cart-item {
+      padding: 14px 0;
+      border-bottom: 1px dashed #d9c8b6;
+    }
+
+    .cart-name {
+      font-weight: 950;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--brown);
+    }
+
+    .cart-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .qty {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .qty button {
+      width: 29px;
+      height: 29px;
+      border: none;
+      border-radius: 50%;
+      background: #f2e2d0;
+      color: var(--orange-dark);
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .tip-box {
+      margin-top: 16px;
+      padding-top: 15px;
+      border-top: 1px solid #ead8c4;
+    }
+
+    .mini-title {
+      color: var(--green);
+      font-weight: 950;
+      margin-bottom: 10px;
+    }
+
+    .tip-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .tip-buttons button {
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid #dcc9b2;
+      background: #fffaf4;
+      cursor: pointer;
+      font-weight: 950;
+    }
+
+    .tip-buttons button.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    .summary {
+      margin-top: 16px;
+      padding-top: 15px;
+      border-top: 2px solid #ead8c4;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      color: #5a5149;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .summary-line.total {
+      color: var(--green);
+      font-size: 24px;
+      font-weight: 950;
+      margin-top: 8px;
+    }
+
+    .payment-box {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid #ead8c4;
+    }
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .payment-option {
+      padding: 13px 8px;
+      border: 1px solid #dcc9b2;
+      background: #fffaf4;
+      border-radius: 17px;
+      font-weight: 950;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .payment-option.active {
+      background: var(--green);
+      color: white;
+      border-color: var(--green);
+    }
+
+    .pay-panel {
+      display: none;
+      background: #fffaf4;
+      border: 1px solid #ead8c4;
+      border-radius: 20px;
+      padding: 15px;
+      margin-bottom: 14px;
+    }
+
+    .panel-note {
+      color: var(--gray);
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .complete-btn {
+      width: 100%;
+      border: none;
+      background: var(--orange);
+      color: white;
+      padding: 16px;
+      border-radius: 19px;
+      font-size: 16px;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(210,118,44,0.25);
+    }
+
+    .complete-btn:hover {
+      background: var(--orange-dark);
+    }
+
+    .clear-btn {
+      width: 100%;
+      border: none;
+      background: #f1e1cf;
+      color: #6f3d17;
+      padding: 13px;
+      border-radius: 17px;
+      font-weight: 950;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .receipt {
+      display: none;
+      margin-top: 20px;
+      padding: 19px;
+      border-radius: 22px;
+      background: #fffdf9;
+      border: 1px solid #ead8c4;
+    }
+
+    .receipt h3 {
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .receipt-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .history-section {
+      display: none;
+      background: white;
+      padding: 24px;
+      border: 1px solid #ead8c4;
+      border-radius: 28px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .history-section h2 {
+      color: var(--green);
+      margin-bottom: 5px;
+      font-size: 30px;
+    }
+
+    .history-card {
+      background: #fffdf9;
+      border: 1px solid #ead8c4;
+      border-radius: 19px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 1200px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: block;
+      }
+
+      .checkout {
+        border-left: none;
+        border-top: 1px solid #ead8c4;
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .main {
+        padding: 18px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      .hero {
+        padding: 28px;
+        min-height: 280px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+
+      .payment-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div>
+      <div class="brand-mark">
+        <div class="brand-icon">🧋</div>
+        <div>
+          <div class="brand-name">Boba<span>Nada</span></div>
+          <div class="brand-subtitle">Cafe Franchise System</div>
+        </div>
+      </div>
+
+      <div class="trial-pill">TRIAL VERSION</div>
+
+      <div class="nav-label">Store Operations</div>
+
+      <button class="nav-btn active" onclick="showPage('menu', this)">🛒 New Order</button>
+      <button class="nav-btn" onclick="showPage('history', this)">📋 Order History</button>
+      <button class="nav-btn" onclick="resetTrial()">🔄 Reset Trial Data</button>
+    </div>
+
+    <div class="franchise-card">
+      <strong>Franchise Ready Layout</strong>
+      <p>
+        Designed for a modern BobaNada store: drinks, snacks, bakery,
+        ice cream, checkout, receipt, and trial order history.
+      </p>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section id="menuPage">
+
+      <div class="topbar">
+        <div class="location-chip">
+          <strong>BobaNada Irving</strong>
+          Store #001 • Open Today • Trial POS
+        </div>
+
+        <input
+          id="searchInput"
+          class="search"
+          type="text"
+          placeholder="Search boba, coffee, elote..."
+          oninput="renderProducts()"
+        />
+      </div>
+
+      <section class="hero">
+        <div class="hero-content">
+          <div class="eyebrow">Signature Café Ordering Experience</div>
+
+          <h1>Fresh Boba, Coffee, Bakery & <span>Mexican Street Snacks</span></h1>
+
+          <p>
+            A polished BobaNada franchise-style ordering system built for trial use.
+            Designed for a premium café brand with fast checkout, clean product cards,
+            payment options, tips, receipt, and order history.
+          </p>
+
+          <div class="hero-actions">
+            <button class="hero-btn primary" onclick="scrollToMenu()">Start Order</button>
+            <button class="hero-btn secondary" onclick="showPage('history', document.querySelectorAll('.nav-btn')[1])">View Orders</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <strong>25+</strong>
+          <span>Menu Items</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>5</strong>
+          <span>Main Categories</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>8.25%</strong>
+          <span>Sales Tax Setup</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>Multi</strong>
+          <span>Payment Options</span>
+        </div>
+      </div>
+
+      <div class="section-head" id="menuStart">
+        <div>
+          <h2>Featured Menu</h2>
+          <p>Franchise-style menu cards with premium product presentation.</p>
+        </div>
+      </div>
+
+      <div class="categories">
+        <button class="cat-btn active" onclick="setCategory('All', this)">All Items</button>
+        <button class="cat-btn" onclick="setCategory('Coffee', this)">Coffee</button>
+        <button class="cat-btn" onclick="setCategory('Boba', this)">Boba</button>
+        <button class="cat-btn" onclick="setCategory('Bakery', this)">Bakery</button>
+        <button class="cat-btn" onclick="setCategory('Snacks', this)">Mexican Snacks</button>
+        <button class="cat-btn" onclick="setCategory('Ice Cream', this)">Ice Cream</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+
+    </section>
+
+    <section id="historyPage" class="history-section">
+      <h2>Order History</h2>
+      <p class="small">Saved locally in your browser for trial/demo use.</p>
+      <div id="historyList"></div>
+    </section>
+
+  </main>
+
+  <aside class="checkout">
+
+    <div class="checkout-header">
+      <h2>Checkout</h2>
+      <p>Build order, choose payment, complete transaction, and generate receipt.</p>
+    </div>
+
+    <div class="form-row">
+      <label>Customer Name</label>
+      <input id="customerName" type="text" placeholder="Walk-in Customer" />
+    </div>
+
+    <div class="form-row">
+      <label>Phone Number</label>
+      <input id="customerPhone" type="text" placeholder="Optional for pickup" />
+    </div>
+
+    <div class="form-row">
+      <label>Order Type</label>
+      <select id="orderType">
+        <option>Dine-in</option>
+        <option>To-go</option>
+        <option>Pickup</option>
+        <option>Delivery</option>
+      </select>
+    </div>
+
+    <div class="cart-title">Cart</div>
+    <div id="cartItems"></div>
+
+    <div class="tip-box">
+      <div class="mini-title">Add Tip</div>
+      <div class="tip-buttons">
+        <button class="tip-btn active" onclick="setTip(0, this)">No Tip</button>
+        <button class="tip-btn" onclick="setTip(10, this)">10%</button>
+        <button class="tip-btn" onclick="setTip(15, this)">15%</button>
+        <button class="tip-btn" onclick="setTip(20, this)">20%</button>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-line">
+        <span>Subtotal</span>
+        <span id="subtotal">$0.00</span>
+      </div>
+
+      <div class="summary-line">
+        <span>Sales Tax</span>
+        <span id="tax">$0.00</span>
+      </div>
+
+      <div class="summary-line">
+        <span>Tip</span>
+        <span id="tip">$0.00</span>
+      </div>
+
+      <div class="summary-line total">
+        <span>Total</span>
+        <span id="total">$0.00</span>
+      </div>
+    </div>
+
+    <div class="payment-box">
+      <div class="mini-title">Payment Method</div>
+
+      <div class="payment-grid">
+        <button class="payment-option active" onclick="selectPayment('card', this)">💳 Card</button>
+        <button class="payment-option" onclick="selectPayment('apple', this)"> Apple Pay</button>
+        <button class="payment-option" onclick="selectPayment('google', this)">G Pay</button>
+        <button class="payment-option" onclick="selectPayment('cash', this)">💵 Cash</button>
+        <button class="payment-option" onclick="selectPayment('gift', this)">🎁 Gift Card</button>
+        <button class="payment-option" onclick="selectPayment('loyalty', this)">⭐ Rewards</button>
+      </div>
+
+      <div id="cardPanel" class="pay-panel">
+        <p class="panel-note">Trial card form. No real payment is processed.</p>
+
+        <div class="form-row">
+          <label>Card Number</label>
+          <input id="cardNumber" type="text" placeholder="4242 4242 4242 4242" />
+        </div>
+
+        <div class="form-row">
+          <label>Name on Card</label>
+          <input id="cardName" type="text" placeholder="Customer Name" />
+        </div>
+
+        <div class="form-row">
+          <label>Expiration / CVV</label>
+          <input id="cardExp" type="text" placeholder="MM/YY   CVV" />
+        </div>
+      </div>
+
+      <div id="walletPanel" class="pay-panel">
+        <p class="panel-note">
+          Wallet selected. A real version would connect to Apple Pay or Google Pay through Stripe, Square, Clover, or Toast.
+        </p>
+      </div>
+
+      <div id="cashPanel" class="pay-panel">
+        <p class="panel-note">Enter cash received to calculate change.</p>
+
+        <div class="form-row">
+          <label>Cash Received</label>
+          <input id="cashReceived" type="number" placeholder="Example: 20.00" oninput="updateTotals()" />
+        </div>
+
+        <div class="summary-line">
+          <span>Change Due</span>
+          <strong id="changeDue">$0.00</strong>
+        </div>
+      </div>
+
+      <div id="giftPanel" class="pay-panel">
+        <p class="panel-note">Gift card trial field. Real balance checking requires backend connection.</p>
+
+        <div class="form-row">
+          <label>Gift Card Code</label>
+          <input id="giftCode" type="text" placeholder="BN-GIFT-1234" />
+        </div>
+      </div>
+
+      <div id="loyaltyPanel" class="pay-panel">
+        <p class="panel-note">
+          Rewards payment selected. A real franchise app would verify member points from a customer loyalty account.
+        </p>
+
+        <div class="form-row">
+          <label>Rewards Phone / Member ID</label>
+          <input id="loyaltyId" type="text" placeholder="Phone number or member ID" />
+        </div>
+      </div>
+    </div>
+
+    <button class="complete-btn" onclick="completeOrder()">Complete Payment</button>
+    <button class="clear-btn" onclick="clearCart()">Clear Order</button>
+
+    <div class="receipt" id="receiptBox">
+      <h3>BobaNada Receipt</h3>
+      <div id="receiptContent"></div>
+    </div>
+
+  </aside>
+
+</div>
+
+<script>
+  const TAX_RATE = 0.0825;
+
+  let cart = [];
+  let currentCategory = "All";
+  let selectedTipPercent = 0;
+  let selectedPayment = "card";
+
+  const products = [
+    {
+      id: 1,
+      name: "Iced Caramel Latte",
+      category: "Coffee",
+      tag: "Popular",
+      price: 5.49,
+      description: "Espresso, milk, caramel drizzle, and ice.",
+      image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 2,
+      name: "Vanilla Cold Brew",
+      category: "Coffee",
+      tag: "Cold Brew",
+      price: 5.25,
+      description: "Slow brewed coffee with smooth vanilla cream.",
+      image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 3,
+      name: "Mocha Frappé",
+      category: "Coffee",
+      tag: "Blended",
+      price: 6.25,
+      description: "Chocolate coffee blend topped with cream.",
+      image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 4,
+      name: "Spanish Latte",
+      category: "Coffee",
+      tag: "Signature",
+      price: 5.95,
+      description: "Bold espresso with rich sweet milk.",
+      image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 5,
+      name: "White Chocolate Latte",
+      category: "Coffee",
+      tag: "Sweet",
+      price: 5.95,
+      description: "Espresso with white chocolate and steamed milk.",
+      image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 6,
+      name: "Classic Cappuccino",
+      category: "Coffee",
+      tag: "Classic",
+      price: 4.75,
+      description: "Espresso, steamed milk, and silky foam.",
+      image: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=900&q=80"
+    },
+
+    {
+      id: 7,
+      name: "Brown Sugar Milk Tea",
+      category: "Boba",
+      tag: "Best Seller",
+      price: 6.49,
+      description: "Brown sugar syrup, milk tea, and tapioca pearls.",
+      image: "https://images.unsplash.com/photo-1558857563-b371033873b8?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 8,
+      name: "Taro Milk Tea",
+      category: "Boba",
+      tag: "Creamy",
+      price: 6.25,
+      description: "Creamy taro milk tea with chewy boba.",
+      image: "https://images.unsplash.com/photo-1621221814632-9f0f7e4f28f1?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 9,
+      name: "Thai Milk Tea",
+      category: "Boba",
+      tag: "Classic Tea",
+      price: 6.25,
+      description: "Strong Thai tea with creamy milk and boba.",
+      image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 10,
+      name: "Mango Fruit Tea",
+      category: "Boba",
+      tag: "Refreshing",
+      price: 5.95,
+      description: "Mango fruit tea with tropical flavor.",
+      image: "https://images.unsplash.com/photo-1560508180-03f285f67ded?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 11,
+      name: "Strawberry Matcha Latte",
+      category: "Boba",
+      tag: "Premium",
+      price: 6.75,
+      description: "Layered strawberry, milk, and matcha.",
+      image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 12,
+      name: "Honeydew Milk Tea",
+      category: "Boba",
+      tag: "Milk Tea",
+      price: 6.25,
+      description: "Sweet honeydew milk tea with tapioca pearls.",
+      image: "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=900&q=80"
+    },
+
+    {
+      id: 13,
+      name: "Almond Croissant",
+      category: "Bakery",
+      tag: "Fresh Daily",
+      price: 4.95,
+      description: "Flaky croissant with almond filling.",
+      image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 14,
+      name: "Chocolate Croissant",
+      category: "Bakery",
+      tag: "Bakery",
+      price: 4.75,
+      description: "Buttery croissant filled with chocolate.",
+      image: "https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 15,
+      name: "Cream Cheese Danish",
+      category: "Bakery",
+      tag: "Sweet Pastry",
+      price: 4.50,
+      description: "Soft danish with cream cheese center.",
+      image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 16,
+      name: "Blueberry Danish",
+      category: "Bakery",
+      tag: "Fruit Pastry",
+      price: 4.75,
+      description: "Flaky pastry with blueberry filling.",
+      image: "https://images.unsplash.com/photo-1509365465985-25d11c17e812?auto=format&fit=crop&w=900&q=80"
+    },
+
+    {
+      id: 17,
+      name: "Elote Cup",
+      category: "Snacks",
+      tag: "Street Style",
+      price: 5.99,
+      description: "Corn, mayo, cheese, lime, chili, and Tajin.",
+      image: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 18,
+      name: "Esquites",
+      category: "Snacks",
+      tag: "Mexican Snack",
+      price: 5.75,
+      description: "Mexican street corn served in a cup.",
+      image: "https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 19,
+      name: "Takis Elote Bowl",
+      category: "Snacks",
+      tag: "Spicy",
+      price: 6.99,
+      description: "Elote topped with crushed Takis.",
+      image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 20,
+      name: "Nachos with Cheese",
+      category: "Snacks",
+      tag: "Snack",
+      price: 5.49,
+      description: "Crispy nachos with warm cheese sauce.",
+      image: "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 21,
+      name: "Mangonada Cup",
+      category: "Snacks",
+      tag: "Sweet & Spicy",
+      price: 6.49,
+      description: "Mango, chamoy, Tajin, and candy straw.",
+      image: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=900&q=80"
+    },
+
+    {
+      id: 22,
+      name: "Vanilla Bean Ice Cream",
+      category: "Ice Cream",
+      tag: "Classic",
+      price: 3.99,
+      description: "Classic creamy vanilla ice cream scoop.",
+      image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 23,
+      name: "Chocolate Fudge Ice Cream",
+      category: "Ice Cream",
+      tag: "Rich",
+      price: 4.25,
+      description: "Rich chocolate fudge ice cream.",
+      image: "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 24,
+      name: "Mango Tajin Ice Cream",
+      category: "Ice Cream",
+      tag: "Signature",
+      price: 4.75,
+      description: "Mango ice cream with Tajin flavor.",
+      image: "https://images.unsplash.com/photo-1488900128323-21503983a07e?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      id: 25,
+      name: "Cookies & Cream Ice Cream",
+      category: "Ice Cream",
+      tag: "Popular",
+      price: 4.50,
+      description: "Creamy ice cream with cookie pieces.",
+      image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=900&q=80"
+    }
+  ];
+
+  function money(amount) {
+    return "$" + amount.toFixed(2);
+  }
+
+  function scrollToMenu() {
+    document.getElementById("menuStart").scrollIntoView({ behavior: "smooth" });
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById("productGrid");
+    const searchText = document.getElementById("searchInput").value.toLowerCase();
+
+    const filtered = products.filter(product => {
+      const matchesCategory = currentCategory === "All" || product.category === currentCategory;
+
+      const matchesSearch =
+        product.name.toLowerCase().includes(searchText) ||
+        product.category.toLowerCase().includes(searchText) ||
+        product.description.toLowerCase().includes(searchText);
+
+      return matchesCategory && matchesSearch;
+    });
+
+    grid.innerHTML = filtered.map(product => `
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="${product.image}" class="product-img" alt="${product.name}">
+          <div class="badge">${product.tag}</div>
+        </div>
+
+        <div class="product-body">
+          <div class="product-meta">${product.category}</div>
+          <h3>${product.name}</h3>
+          <p>${product.description}</p>
+
+          <div class="product-bottom">
+            <div class="price">${money(product.price)}</div>
+            <button class="add-btn" onclick="addToCart(${product.id})">Add +</button>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function setCategory(category, button) {
+    currentCategory = category;
+
+    document.querySelectorAll(".cat-btn").forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    renderProducts();
+  }
+
+  function addToCart(productId) {
+    const product = products.find(item => item.id === productId);
+    const existing = cart.find(item => item.id === productId);
+
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1
+      });
+    }
+
+    renderCart();
+  }
+
+  function increaseQty(productId) {
+    const item = cart.find(item => item.id === productId);
+    if (item) item.quantity += 1;
+    renderCart();
+  }
+
+  function decreaseQty(productId) {
+    const item = cart.find(item => item.id === productId);
+    if (!item) return;
+
+    if (item.quantity > 1) {
+      item.quantity -= 1;
+    } else {
+      cart = cart.filter(item => item.id !== productId);
+    }
+
+    renderCart();
+  }
+
+  function calculateTotals() {
+    const subtotal = cart.reduce((sum, item) => {
+      return sum + item.price * item.quantity;
+    }, 0);
+
+    const tax = subtotal * TAX_RATE;
+    const tip = subtotal * (selectedTipPercent / 100);
+    const total = subtotal + tax + tip;
+
+    return { subtotal, tax, tip, total };
+  }
+
+  function renderCart() {
+    const cartItems = document.getElementById("cartItems");
+
+    if (cart.length === 0) {
+      cartItems.innerHTML = `<p class="empty">Cart is empty. Add menu items to start.</p>`;
+    } else {
+      cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-name">${item.name}</div>
+
+          <div class="cart-line">
+            <div class="qty">
+              <button onclick="decreaseQty(${item.id})">−</button>
+              <span>${item.quantity}</span>
+              <button onclick="increaseQty(${item.id})">+</button>
+            </div>
+
+            <strong>${money(item.price * item.quantity)}</strong>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    updateTotals();
+  }
+
+  function updateTotals() {
+    const totals = calculateTotals();
+
+    document.getElementById("subtotal").innerText = money(totals.subtotal);
+    document.getElementById("tax").innerText = money(totals.tax);
+    document.getElementById("tip").innerText = money(totals.tip);
+    document.getElementById("total").innerText = money(totals.total);
+
+    const cashReceivedInput = document.getElementById("cashReceived");
+    const changeDue = document.getElementById("changeDue");
+
+    if (cashReceivedInput && changeDue) {
+      const cashReceived = Number(cashReceivedInput.value || 0);
+      const change = cashReceived - totals.total;
+      changeDue.innerText = money(change > 0 ? change : 0);
+    }
+  }
+
+  function setTip(percent, button) {
+    selectedTipPercent = percent;
+
+    document.querySelectorAll(".tip-btn").forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    updateTotals();
+  }
+
+  function selectPayment(method, button) {
+    selectedPayment = method;
+
+    document.querySelectorAll(".payment-option").forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    document.querySelectorAll(".pay-panel").forEach(panel => {
+      panel.style.display = "none";
+    });
+
+    if (method === "card") {
+      document.getElementById("cardPanel").style.display = "block";
+    }
+
+    if (method === "cash") {
+      document.getElementById("cashPanel").style.display = "block";
+    }
+
+    if (method === "apple" || method === "google") {
+      document.getElementById("walletPanel").style.display = "block";
+    }
+
+    if (method === "gift") {
+      document.getElementById("giftPanel").style.display = "block";
+    }
+
+    if (method === "loyalty") {
+      document.getElementById("loyaltyPanel").style.display = "block";
+    }
+  }
+
+  function paymentLabel(method) {
+    if (method === "card") return "Credit / Debit Card";
+    if (method === "apple") return "Apple Pay";
+    if (method === "google") return "Google Pay";
+    if (method === "cash") return "Cash";
+    if (method === "gift") return "Gift Card";
+    if (method === "loyalty") return "Rewards";
+    return "Unknown";
+  }
+
+  function completeOrder() {
+    if (cart.length === 0) {
+      alert("Please add at least one item before completing payment.");
+      return;
+    }
+
+    const totals = calculateTotals();
+
+    if (selectedPayment === "cash") {
+      const cashReceived = Number(document.getElementById("cashReceived").value || 0);
+
+      if (cashReceived < totals.total) {
+        alert("Cash received is less than the total.");
+        return;
+      }
+    }
+
+    if (selectedPayment === "card") {
+      const cardNumber = document.getElementById("cardNumber").value.trim();
+      const cardName = document.getElementById("cardName").value.trim();
+
+      if (!cardNumber || !cardName) {
+        alert("Please enter card number and cardholder name.");
+        return;
+      }
+    }
+
+    if (selectedPayment === "gift") {
+      const giftCode = document.getElementById("giftCode").value.trim();
+
+      if (!giftCode) {
+        alert("Please enter gift card code.");
+        return;
+      }
+    }
+
+    if (selectedPayment === "loyalty") {
+      const loyaltyId = document.getElementById("loyaltyId").value.trim();
+
+      if (!loyaltyId) {
+        alert("Please enter rewards phone number or member ID.");
+        return;
+      }
+    }
+
+    const order = {
+      id: "BN-" + Date.now(),
+      store: "BobaNada Irving #001",
+      date: new Date().toLocaleString(),
+      customerName: document.getElementById("customerName").value.trim() || "Walk-in Customer",
+      customerPhone: document.getElementById("customerPhone").value.trim() || "N/A",
+      orderType: document.getElementById("orderType").value,
+      payment: paymentLabel(selectedPayment),
+      items: [...cart],
+      subtotal: totals.subtotal,
+      tax: totals.tax,
+      tip: totals.tip,
+      total: totals.total
+    };
+
+    saveOrder(order);
+    showReceipt(order);
+
+    cart = [];
+    renderCart();
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerPhone").value = "";
+  }
+
+  function saveOrder(order) {
+    const orders = JSON.parse(localStorage.getItem("bobanada_franchise_orders")) || [];
+    orders.unshift(order);
+    localStorage.setItem("bobanada_franchise_orders", JSON.stringify(orders));
+  }
+
+  function showReceipt(order) {
+    const receiptBox = document.getElementById("receiptBox");
+    const receiptContent = document.getElementById("receiptContent");
+
+    receiptBox.style.display = "block";
+
+    receiptContent.innerHTML = `
+      <div class="receipt-line">
+        <strong>Store</strong>
+        <span>${order.store}</span>
+      </div>
+
+      <div class="receipt-line">
+        <strong>Order ID</strong>
+        <span>${order.id}</span>
+      </div>
+
+      <div class="receipt-line">
+        <strong>Date</strong>
+        <span>${order.date}</span>
+      </div>
+
+      <div class="receipt-line">
+        <strong>Customer</strong>
+        <span>${order.customerName}</span>
+      </div>
+
+      <div class="receipt-line">
+        <strong>Phone</strong>
+        <span>${order.customerPhone}</span>
+      </div>
+
+      <div class="receipt-line">
+        <strong>Order Type</strong>
+        <span>${order.orderType}</span>
+      </div>
+
+      <div class="receipt-line">
+        <strong>Payment</strong>
+        <span>${order.payment}</span>
+      </div>
+
+      <hr style="border:none; border-top:1px dashed #ccc; margin:14px 0;">
+
+      ${order.items.map(item => `
+        <div class="receipt-line">
+          <span>${item.quantity} × ${item.name}</span>
+          <span>${money(item.price * item.quantity)}</span>
+        </div>
+      `).join("")}
+
+      <hr style="border:none; border-top:1px dashed #ccc; margin:14px 0;">
+
+      <div class="receipt-line">
+        <span>Subtotal</span>
+        <span>${money(order.subtotal)}</span>
+      </div>
+
+      <div class="receipt-line">
+        <span>Tax</span>
+        <span>${money(order.tax)}</span>
+      </div>
+
+      <div class="receipt-line">
+        <span>Tip</span>
+        <span>${money(order.tip)}</span>
+      </div>
+
+      <div class="receipt-line" style="font-size:18px; color:#163f2c;">
+        <strong>Total Paid</strong>
+        <strong>${money(order.total)}</strong>
+      </div>
+    `;
+  }
+
+  function showPage(page, button) {
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    if (button) {
+      button.classList.add("active");
+    }
+
+    document.getElementById("menuPage").style.display = page === "menu" ? "block" : "none";
+    document.getElementById("historyPage").style.display = page === "history" ? "block" : "none";
+
+    if (page === "history") {
+      renderHistory();
+    }
+  }
+
+  function renderHistory() {
+    const historyList = document.getElementById("historyList");
+    const orders = JSON.parse(localStorage.getItem("bobanada_franchise_orders")) || [];
+
+    if (orders.length === 0) {
+      historyList.innerHTML = `<p class="empty">No orders saved yet.</p>`;
+      return;
+    }
+
+    historyList.innerHTML = orders.map(order => `
+      <div class="history-card">
+        <strong>${order.id}</strong>
+        <div class="small">${order.store}</div>
+        <div class="small">${order.date}</div>
+        <div class="small">Customer: ${order.customerName}</div>
+        <div class="small">Order Type: ${order.orderType}</div>
+        <div class="small">Payment: ${order.payment}</div>
+        <br>
+        <strong>Total: ${money(order.total)}</strong>
+      </div>
+    `).join("");
+  }
+
+  function clearCart() {
+    cart = [];
+    renderCart();
+  }
+
+  function resetTrial() {
+    const confirmReset = confirm("Delete all saved trial orders?");
+
+    if (confirmReset) {
+      localStorage.removeItem("bobanada_franchise_orders");
+      cart = [];
+      renderCart();
+      renderHistory();
+      document.getElementById("receiptBox").style.display = "none";
+      alert("Trial data reset successfully.");
+    }
+  }
+
+  renderProducts();
+  renderCart();
+  selectPayment("card", document.querySelector(".payment-option"));
+</script>
+
+</body>
+</html>
